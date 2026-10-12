@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light" />
+<title>已完成工作总览 · 2026-10-12 · AI中枢赵</title>
+<meta name="description" content="赵宇 / Olaoisera — 已完成工作总览（教学/过程候选｜非签认）" />
+<style>
+  :root {
+    --bg: #f7f4ef;
+    --bg-card: #ffffff;
+    --ink: #1c1917;
+    --ink-soft: #57534e;
+    --ink-mute: #78716c;
+    --accent: #b45309;
+    --accent-soft: #fef3c7;
+    --accent-border: #f59e0b;
+    --ok: #047857;
+    --ok-bg: #ecfdf5;
+    --ok-border: #6ee7b7;
+    --warn: #9a3412;
+    --warn-bg: #fff7ed;
+    --warn-border: #fdba74;
+    --line: #e7e5e4;
+    --shadow: 0 1px 2px rgba(28,25,23,.06), 0 8px 24px rgba(28,25,23,.06);
+    --radius: 14px;
+    --header-h: 64px;
+    --max: 920px;
+    --font: "PingFang SC", "Noto Sans CJK SC", "Noto Sans SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); }
+  body {
+    margin: 0;
+    font-family: var(--font);
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 600px at 10% -10%, #fde68a55, transparent 50%),
+      radial-gradient(900px 500px at 100% 0%, #fdba7440, transparent 45%),
+      var(--bg);
+    line-height: 1.65;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover { color: #92400e; }
+
+  /* Sticky header */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(12px);
+    background: rgba(247,244,239,.88);
+    border-bottom: 1px solid var(--line);
+  }
+  .site-header .inner {
+    width: 100%;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .brand h1 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .brand .meta {
+    font-size: .75rem;
+    color: var(--ink-mute);
+    white-space: nowrap;
+  }
+  .nav {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: .8rem;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+  .nav a:hover { background: #fff; color: var(--ink); box-shadow: var(--shadow); }
+
+  main { max-width: var(--max); margin: 0 auto; padding: 28px 20px 64px; }
+
+  .hero {
+    margin-bottom: 28px;
+    padding: 28px 28px 24px;
+    background: linear-gradient(135deg, #fffbeb 0%, #ffffff 55%);
+    border: 1px solid #fde68a;
+    border-radius: calc(var(--radius) + 4px);
+    box-shadow: var(--shadow);
+  }
+  .hero .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .75rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid #fcd34d;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .hero h2 {
+    margin: 0 0 8px;
+    font-size: 1.65rem;
+    line-height: 1.3;
+    font-weight: 800;
+  }
+  .hero p {
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: 52ch;
+  }
+  .hero .note {
+    margin-top: 14px;
+    font-size: .85rem;
+    color: var(--warn);
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-border);
+    border-radius: 10px;
+    padding: 10px 14px;
+  }
+
+  /* Controls */
+  .controls {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 40;
+    background: rgba(247,244,239,.92);
+    backdrop-filter: blur(10px);
+    padding: 12px 0 14px;
+    margin: 0 0 8px;
+    border-bottom: 1px solid transparent;
+  }
+  .controls.stuck { border-bottom-color: var(--line); }
+  .search-wrap {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .search-wrap input {
+    flex: 1;
+    font: inherit;
+    font-size: .95rem;
+    padding: 12px 16px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--ink);
+    outline: none;
+    box-shadow: 0 1px 2px rgba(0,0,0,.03);
+  }
+  .search-wrap input:focus {
+    border-color: var(--accent-border);
+    box-shadow: 0 0 0 3px #fef3c7;
+  }
+  .search-wrap .count {
+    font-size: .8rem;
+    color: var(--ink-mute);
+    white-space: nowrap;
+    min-width: 4.5em;
+    text-align: right;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    font: inherit;
+    font-size: .82rem;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: .15s ease;
+  }
+  .chip:hover { border-color: #d6d3d1; color: var(--ink); }
+  .chip.active {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+  .chip .n {
+    opacity: .7;
+    font-weight: 500;
+    margin-left: 4px;
+  }
+
+  section.block { margin-top: 28px; }
+  section.block > .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  section.block > .sec-head h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  section.block > .sec-head .sec-meta {
+    font-size: .8rem;
+    color: var(--ink-mute);
+  }
+
+  .cards { display: flex; flex-direction: column; gap: 16px; }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 22px 18px;
+    box-shadow: var(--shadow);
+    transition: opacity .2s, transform .2s;
+  }
+  .card.hidden { display: none; }
+  .card-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 10px 14px;
+    margin-bottom: 10px;
+  }
+  .card h4 {
+    margin: 0;
+    font-size: 1.12rem;
+    font-weight: 700;
+    flex: 1;
+    min-width: 12ch;
+    line-height: 1.35;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--ok-bg);
+    color: var(--ok);
+    border: 1px solid var(--ok-border);
+    white-space: nowrap;
+  }
+  .badge::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .tag-ai {
+    display: inline-flex;
+    font-size: .7rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: #f5f5f4;
+    color: var(--ink-mute);
+    border: 1px solid var(--line);
+  }
+  .date {
+    font-size: .82rem;
+    color: var(--ink-mute);
+    font-variant-numeric: tabular-nums;
+  }
+  .card ul {
+    margin: 8px 0 0;
+    padding-left: 1.15em;
+  }
+  .card li { margin: 5px 0; color: var(--ink); }
+  .card li .muted { color: var(--ink-soft); }
+  .hash-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: .78rem;
+    word-break: break-all;
+  }
+  .hash-row code {
+    background: #f5f5f4;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    color: #44403c;
+  }
+  .btn-copy {
+    font: inherit;
+    font-size: .72rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .btn-copy:hover { border-color: var(--accent-border); color: var(--accent); }
+  .btn-copy.ok { background: var(--ok-bg); border-color: var(--ok-border); color: var(--ok); }
+  .links { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .links a {
+    font-size: .82rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: var(--accent-soft);
+    border: 1px solid #fcd34d;
+    color: #92400e;
+  }
+  .links a:hover { background: #fde68a; }
+
+  .empty {
+    display: none;
+    text-align: center;
+    padding: 36px 16px;
+    color: var(--ink-mute);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+  }
+  .empty.show { display: block; }
+
+  /* Pending collapsed */
+  details.pending {
+    margin-top: 40px;
+    border: 1px dashed var(--warn-border);
+    border-radius: var(--radius);
+    background: var(--warn-bg);
+    padding: 4px 18px 12px;
+  }
+  details.pending summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--warn);
+    padding: 12px 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  details.pending summary::-webkit-details-marker { display: none; }
+  details.pending summary::before {
+    content: "▸";
+    font-size: .85rem;
+    transition: transform .15s;
+  }
+  details.pending[open] summary::before { transform: rotate(90deg); }
+  details.pending .warn-label {
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    background: #fff;
+    border: 1px solid var(--warn-border);
+    color: var(--warn);
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+  details.pending ul {
+    margin: 0 0 8px;
+    padding-left: 1.2em;
+    color: #7c2d12;
+  }
+  details.pending li { margin: 4px 0; }
+  details.pending .disclaimer {
+    font-size: .8rem;
+    color: #9a3412;
+    opacity: .85;
+    margin: 0 0 6px;
+  }
+
+  footer.site-footer {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 8px 20px 48px;
+    text-align: center;
+    font-size: .8rem;
+    color: var(--ink-mute);
+    line-height: 1.7;
+  }
+  footer.site-footer .line {
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .nav { display: none; }
+    .hero { padding: 20px; }
+    .hero h2 { font-size: 1.35rem; }
+    .card { padding: 16px; }
+  }
+
+  @media print {
+    :root { --bg: #fff; }
+    body { background: #fff; font-size: 11pt; }
+    .site-header {
+      position: static;
+      backdrop-filter: none;
+      background: #fff;
+      border-bottom: 2px solid #000;
+      height: auto;
+      padding: 8px 0;
+    }
+    .nav, .controls, .btn-copy, .eyebrow { display: none !important; }
+    .hero {
+      box-shadow: none;
+      border: 1px solid #ccc;
+      break-inside: avoid;
+    }
+    .card {
+      box-shadow: none;
+      break-inside: avoid;
+      border: 1px solid #ccc;
+      page-break-inside: avoid;
+    }
+    .card.hidden { display: block !important; }
+    details.pending { break-inside: avoid; }
+    details.pending[open], details.pending { open: true; }
+    a { color: #000; text-decoration: underline; }
+    a[href]::after { content: " (" attr(href) ")"; font-size: .75em; color: #555; word-break: break-all; }
+    .links a::after { content: none; }
+    footer.site-footer { color: #333; }
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <div class="brand">
+      <h1>已完成工作总览</h1>
+      <div class="meta">2026-10-12 PT · 北京时间同日 · AI中枢赵</div>
+    </div>
+    <nav class="nav" aria-label="页内导航">
+      <a href="#done">已完成</a>
+      <a href="#pending">挂起</a>
+      <a href="#about">说明</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero" id="about">
+    <div class="eyebrow">教学 / 过程候选 · 非签认 · 非工程签发</div>
+    <h2>赵宇工作台 · 已完成交付册</h2>
+    <p>本页汇总截至 <strong>2026-10-12</strong>（太平洋时间 / 北京时间同日）已完成、可核验的交付项。仅列事实；未完事项见底部折叠区，明确标注「非本册范围」。</p>
+    <div class="note">受众：赵宇 / Olaoisera。本册为过程总览，不构成签认或工程签发文件。</div>
+  </div>
+
+  <div class="controls" id="controls">
+    <div class="search-wrap">
+      <input type="search" id="q" placeholder="搜索标题、哈希、关键词…" autocomplete="off" aria-label="搜索已完成项" />
+      <span class="count" id="count" aria-live="polite"></span>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="分类筛选">
+      <button type="button" class="chip active" data-cat="all">全部 <span class="n" id="n-all"></span></button>
+      <button type="button" class="chip" data-cat="交互页">交互页 <span class="n" id="n-交互页"></span></button>
+      <button type="button" class="chip" data-cat="邮件">邮件 <span class="n" id="n-邮件"></span></button>
+      <button type="button" class="chip" data-cat="CAD">CAD <span class="n" id="n-CAD"></span></button>
+      <button type="button" class="chip" data-cat="调研">调研 <span class="n" id="n-调研"></span></button>
+      <button type="button" class="chip" data-cat="环境">环境 <span class="n" id="n-环境"></span></button>
+    </div>
+  </div>
+
+  <section class="block" id="done" aria-labelledby="done-title">
+    <div class="sec-head">
+      <h3 id="done-title">已完成交付</h3>
+      <span class="sec-meta">仅列已结案事实 · AI候选请留意标签</span>
+    </div>
+    <div class="cards" id="cards">
+
+      <!-- 1 ARCH-SM-AI-PAGES -->
+      <article class="card" data-cat="交互页" data-keys="ARCH-SM-AI-PAGES 结构力学 交互页 73 截图 SHA256 engine-tests 知识点 AgentMail Drive">
+        <div class="card-top">
+          <h4>ARCH-SM-AI-PAGES · 结构力学交互页全量交付</h4>
+          <span class="badge">已完成</span>
+          <span class="tag-ai">AI候选 / 非签认</span>
+          <span class="date">2026-10-12</span>
+        </div>
+        <ul>
+          <li>73 页 + 截图包；本机哈希已核 <strong>MATCH</strong></li>
+          <li>主包 SHA256
+            <div class="hash-row">
+              <code data-hash="425798821e89ec52d679730544ac9070bd435216030709427766823dfe98406f">425798821e89ec52d679730544ac9070bd435216030709427766823dfe98406f</code>
+              <button type="button" class="btn-copy" data-copy>复制</button>
+              <span class="muted">（1 340 407 B）</span>
+            </div>
+          </li>
+          <li>截图包 SHA256
+            <div class="hash-row">
+              <code data-hash="fe1ce88d69826acdd776ecce21d30d44507d1995e629bf247bec6064eed8fd86">fe1ce88d69826acdd776ecce21d30d44507d1995e629bf247bec6064eed8fd86</code>
+              <button type="button" class="btn-copy" data-copy>复制</button>
+              <span class="muted">（65 163 774 B）</span>
+            </div>
+          </li>
+          <li>七必抽全过；engine-tests <strong>176/176</strong>；273 知识点无缺口</li>
+          <li>AgentMail 原线程已交并 CC 163</li>
+        </ul>
+        <div class="links">
+          <a href="https://drive.google.com/file/d/1MuiEAvRaTvMbYUxyFkbEgcDhQLICQPhn/view?usp=drivesdk" target="_blank" rel="noopener">Drive · 主包</a>
+          <a href="https://drive.google.com/file/d/1uhBgYp0Gb30Zu8xJTDxeF2zDyYmN_2tb/view?usp=drivesdk" target="_blank" rel="noopener">Drive · 截图包</a>
+        </div>
+      </article>
+
+      <!-- 2 邮件体系 -->
+      <article class="card" data-cat="邮件" data-keys="邮件体系 AgentMail archineer 外发 CC 巡检 AIman 指令">
+        <div class="card-top">
+          <h4>邮件体系</h4>
+          <span class="badge">已完成</span>
+          <span class="tag-ai">AI候选 / 非签认</span>
+          <span class="date">2026-10-08～11</span>
+        </div>
+        <ul>
+          <li>外发 / 默认收件：<code>archineer@agentmail.to</code>（显示名「AI中枢赵」）</li>
+          <li>备好即发；默认 CC <code>zhao_yu@vip.163.com</code></li>
+          <li>指令只认 <code>olaoiseraacddrs45@gmail.com</code> 与 <code>zhao_yu@vip.163.com</code></li>
+          <li>专项外发须经中枢汇总校审</li>
+          <li>AIman AgentMail 巡检例程：北京时间 8:00–21:30，:18 / :48 + 21:18</li>
+        </ul>
+      </article>
+
+      <!-- 3 26133 CAD -->
+      <article class="card" data-cat="CAD" data-keys="26133 CAD 翻图 PRINTFIX Sol 标注 R02 scan-to-cad TArch 经验 lessons">
+        <div class="card-top">
+          <h4>26133 CAD 翻图</h4>
+          <span class="badge">已完成</span>
+          <span class="tag-ai">AI候选 / 非签认</span>
+          <span class="date">2026-10-12 结案</span>
+        </div>
+        <ul>
+          <li>任务由用户宣布过期结案；过程成果仍计为完成项</li>
+          <li>多轮交稿／PRINTFIX／分域／Sol 暂停确认／标注方案 R02 等已发</li>
+          <li>经验沉淀：<code>hub-ops/26133-AIMAN-GROK-CAD-DRAW-20261007-R01/lessons/CAD翻图流程与技能总结_20261012.md</code></li>
+          <li>技能：Scan to CAD faithful（scan-to-cad-faithful）；另有 TArch to CAD</li>
+        </ul>
+      </article>
+
+      <!-- 4 L01 -->
+      <article class="card" data-cat="调研" data-keys="L01 Jev 十二题 CLI 真跑 回包">
+        <div class="card-top">
+          <h4>L01 · Jev 十二题官方 CLI 真跑回包</h4>
+          <span class="badge">已完成</span>
+          <span class="tag-ai">AI候选 / 非签认</span>
+          <span class="date">已交</span>
+        </div>
+        <ul>
+          <li>官方 CLI 真跑回包已交付</li>
+        </ul>
+      </article>
+
+      <!-- 5 Rhino AI -->
+      <article class="card" data-cat="调研" data-keys="Rhino AI 调研 Word Drive">
+        <div class="card-top">
+          <h4>Rhino AI 调研</h4>
+          <span class="badge">已完成</span>
+          <span class="tag-ai">AI候选 / 非签认</span>
+          <span class="date">已交</span>
+        </div>
+        <ul>
+          <li>Word + Drive 已交</li>
+        </ul>
+      </article>
+
+      <!-- 6 云主机 -->
+      <article class="card" data-cat="环境" data-keys="云主机 中文字体 软件升级 验收">
+        <div class="card-top">
+          <h4>云主机 · 中文字体补全 + 软件升级验收</h4>
+          <span class="badge">已完成</span>
+          <span class="tag-ai">AI候选 / 非签认</span>
+          <span class="date">已交</span>
+        </div>
+        <ul>
+          <li>中文字体补全完成</li>
+          <li>软件升级验收通过</li>
+        </ul>
+      </article>
+
+      <!-- 7 定制 Agent 拒签 -->
+      <article class="card" data-cat="调研" data-keys="定制 Agent 拒签 调研 Drive">
+        <div class="card-top">
+          <h4>定制 Agent 拒签调研</h4>
+          <span class="badge">已完成</span>
+          <span class="tag-ai">AI候选 / 非签认</span>
+          <span class="date">已交</span>
+        </div>
+        <ul>
+          <li>Drive 已交</li>
+        </ul>
+      </article>
+
+      <!-- 8 26133 技标／WB -->
+      <article class="card" data-cat="CAD" data-keys="26133 技标 WB 落稿 S5 P0-1 S7 P0-3 归档">
+        <div class="card-top">
+          <h4>26133 技标／WB 落稿</h4>
+          <span class="badge">已完成</span>
+          <span class="tag-ai">AI候选 / 非签认</span>
+          <span class="date">已归档</span>
+        </div>
+        <ul>
+          <li>S5 + P0-1 + S7 + P0-3 等已归档类完成项</li>
+        </ul>
+      </article>
+
+    </div>
+    <div class="empty" id="empty">无匹配项 — 试试清空搜索或切换「全部」。</div>
+  </section>
+
+  <details class="pending" id="pending">
+    <summary>
+      未完挂起（非本册范围）
+      <span class="warn-label">NOT DONE</span>
+    </summary>
+    <p class="disclaimer">以下明确<strong>未完成</strong>，仅作挂起备忘，不计入本册「已完成」。</p>
+    <ul>
+      <li>WB 兑换码</li>
+      <li>26131 等路径</li>
+      <li>Codex 总表</li>
+      <li>EMBODIED-ORG 六件套未齐</li>
+    </ul>
+  </details>
+</main>
+
+<footer class="site-footer" id="footer">
+  <div class="line">
+    编制 AI中枢赵｜教学/过程候选｜非签认｜非工程签发<br />
+    单文件离线可开 · 亦可托管于 GitHub Pages<br />
+    生成日 2026-10-12 PT
+  </div>
+</footer>
+
+<script>
+(function () {
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".card"));
+  var q = document.getElementById("q");
+  var countEl = document.getElementById("count");
+  var empty = document.getElementById("empty");
+  var chips = document.querySelectorAll(".chip");
+  var cat = "all";
+
+  function norm(s) { return (s || "").toLowerCase(); }
+
+  function updateCounts() {
+    var totals = { all: cards.length };
+    cards.forEach(function (c) {
+      var k = c.getAttribute("data-cat");
+      totals[k] = (totals[k] || 0) + 1;
+    });
+    Object.keys(totals).forEach(function (k) {
+      var el = document.getElementById("n-" + k);
+      if (el) el.textContent = totals[k];
+    });
+  }
+
+  function filter() {
+    var term = norm(q.value.trim());
+    var shown = 0;
+    cards.forEach(function (c) {
+      var okCat = cat === "all" || c.getAttribute("data-cat") === cat;
+      var hay = norm(c.getAttribute("data-keys") + " " + c.textContent);
+      var okQ = !term || hay.indexOf(term) !== -1;
+      var show = okCat && okQ;
+      c.classList.toggle("hidden", !show);
+      if (show) shown++;
+    });
+    countEl.textContent = shown + " / " + cards.length;
+    empty.classList.toggle("show", shown === 0);
+  }
+
+  chips.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      chips.forEach(function (b) { b.classList.remove("active"); });
+      btn.classList.add("active");
+      cat = btn.getAttribute("data-cat");
+      filter();
+    });
+  });
+
+  q.addEventListener("input", filter);
+
+  document.querySelectorAll("[data-copy]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var code = btn.parentElement.querySelector("code[data-hash]");
+      var text = code ? code.getAttribute("data-hash") : "";
+      function done() {
+        var old = btn.textContent;
+        btn.textContent = "已复制";
+        btn.classList.add("ok");
+        setTimeout(function () {
+          btn.textContent = old;
+          btn.classList.remove("ok");
+        }, 1400);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function () {
+          var ta = document.createElement("textarea");
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand("copy"); } catch (e) {}
+          document.body.removeChild(ta);
+          done();
+        });
+      } else {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); } catch (e) {}
+        document.body.removeChild(ta);
+        done();
+      }
+    });
+  });
+
+  // sticky controls border hint
+  var controls = document.getElementById("controls");
+  if (controls && "IntersectionObserver" in window) {
+    var sentinel = document.createElement("div");
+    sentinel.style.height = "1px";
+    sentinel.style.marginTop = "-1px";
+    controls.parentNode.insertBefore(sentinel, controls);
+    var io = new IntersectionObserver(function (entries) {
+      controls.classList.toggle("stuck", !entries[0].isIntersecting);
+    }, { threshold: [1], rootMargin: "-" + getComputedStyle(document.documentElement).getPropertyValue("--header-h") + " 0px 0px 0px" });
+    io.observe(sentinel);
+  }
+
+  updateCounts();
+  filter();
+})();
+</script>
+</body>
+</html>
